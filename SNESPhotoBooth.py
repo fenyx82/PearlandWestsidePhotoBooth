@@ -21,10 +21,10 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 myfontsmall = pygame.font.Font("/usr/share/fonts/truetype/LiberationSans-Regular.ttf", 30)
 myfont = pygame.font.Font("/usr/share/fonts/truetype/LiberationSans-Regular.ttf", 144)
 infoObject = pygame.display.Info()
-apiKey = 'UVcUjBBbwQtVqAE8icaVOQG8H'
-apiSecret = 'h8ZCe2kghnBZO7CFNI3q7aKEnx9zWU4m4uQjEMB10R4wwVbsMe'
-accessToken = '2794658748-DLlIYqDmWLIO4L4ycnr6JmQxFleEvg03efXDSty'
-accessTokenSecret = 'yS5Z65Ko3tHevipL9TAU0ETBFGYZorZZRoNBCI3RYH8nH'
+apiKey = ''
+apiSecret = ''
+accessToken = ''
+accessTokenSecret = ''
 api = Twython(apiKey, apiSecret, accessToken, accessTokenSecret)
 IMG_NAME = "testImage.jpg"
 
