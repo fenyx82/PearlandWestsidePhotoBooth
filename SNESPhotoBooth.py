@@ -11,23 +11,28 @@ import sys
 RED = ( 255, 0, 0)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+#sets up the usb controller
 gamepad=InputDevice('/dev/input/event0')
 camera = picamera.PiCamera()
 camera.resolution = (640, 480)
 #camera.brightness = 70
+#initializes pygame and pygame font
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 myfontsmall = pygame.font.Font("/usr/share/fonts/truetype/LiberationSans-Regular.ttf", 30)
 myfont = pygame.font.Font("/usr/share/fonts/truetype/LiberationSans-Regular.ttf", 144)
 infoObject = pygame.display.Info()
+#twitter app info
 apiKey = ''
 apiSecret = ''
 accessToken = ''
 accessTokenSecret = ''
 api = Twython(apiKey, apiSecret, accessToken, accessTokenSecret)
+#sets image name.  only one image is saved and it is overwritten every time a picture is taken.
 IMG_NAME = "testImage.jpg"
 
+#method to take picture
 def takePicture():
         for event in gamepad.read_loop():
                 if event.type == ecodes.EV_KEY:
@@ -53,13 +58,14 @@ def takePicture():
                                         pygame.display.update()
                                         postTwitter()
                                         return 
+                                #escape button to exit program
                                 elif keyevent.keycode[1] == 'BTN_Y':
                                         camera.close()
                                         pygame.font.quit()
                                         pygame.quit()
                                         
                                 
-
+#method to post to twitter
 def postTwitter():
         for event in gamepad.read_loop():
                 if event.type == ecodes.EV_KEY:
@@ -68,6 +74,7 @@ def postTwitter():
                                 if keyevent.keycode[0] == 'BTN_B':
                                         photo = open(IMG_NAME, 'rb')
                                         media_status = api.upload_media(media=photo)
+                                        #change message to reflect event photobooth is being used at
                                         tweet_txt = "BCLS at the Houston Maker Faire Day 2!  @MakerFaireHOU"
                                         api.update_status(media_ids=[media_status['media_id']], status=tweet_txt)
                                         return
